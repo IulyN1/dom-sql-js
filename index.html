@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./index.css" />
+		<script src="./index.js"></script>
+		<title>DOM-SQL - JS Framework</title>
+	</head>
+	<body>
+		<h1>DOM-SQL - JS Framework</h1>
+		<div id="el">TEST</div>
+		<div id="insertEl"></div>
+		<div id="updateEl">Content</div>
+		<div id="deleteEl">
+			OK
+			<p>OK2</p>
+		</div>
+		<div id="dropEl">Bye</div>
+		<button id="counter">+</button>
+		<span id="counterValue">0</span>
+		<script>
+			let value = 0;
+
+			DOM.insert('<div>New content</div>').into('#insertEl');
+			DOM.update('#updateEl').set('Updated content');
+			DOM.delete('p').from('#deleteEl');
+			DOM.drop('#dropEl');
+
+			DOM.createTrigger('click')
+				.on('#counter')
+				.execute(() => {
+					value++;
+					DOM.update('#counterValue').set(value);
+				});
+			DOM.trigger('click').on('#counter');
+		</script>
+	</body>
+</html>
