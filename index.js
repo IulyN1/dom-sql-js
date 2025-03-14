@@ -19,7 +19,24 @@ const DOM = {
 					console.error(`No element with ${selector} selector!`);
 					return;
 				}
-				elem.innerHTML = content;
+				if (typeof content === 'object') {
+					Object.entries(content).forEach((entry) => {
+						const [key, value] = entry;
+						if (key === 'style') {
+							Object.entries(value).forEach((style) => {
+								const [styleKey, styleValue] = style;
+								elem.style[styleKey] = styleValue;
+							});
+							return;
+						} else {
+							elem[key] = value;
+						}
+					});
+				} else if (typeof content === 'string' || typeof content === 'number') {
+					elem.innerHTML = content;
+				} else {
+					console.error('Invalid content type! Expected string, number or object');
+				}
 			}
 		};
 	},

@@ -22,8 +22,10 @@
 		<script>
 			let value = 0;
 
-			DOM.insert('<div>New content</div>').into('#insertEl');
+			DOM.insert('<div style="color:red">New content</div>').into('#insertEl');
 			DOM.update('#updateEl').set('Updated content');
+			DOM.update('#updateEl').set({ innerHTML: 'Updated with color', style: { color: 'blue' } });
+			DOM.update('#insertEl div').set({ style: { color: 'green' } });
 			DOM.delete('p').from('#deleteEl');
 			DOM.drop('#dropEl');
 
