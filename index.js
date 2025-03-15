@@ -63,19 +63,17 @@ const DOM = {
 					elements.forEach((elem) => {
 						elem.innerHTML = content;
 					});
-				} else if (!content) {
-					elements.forEach((elem) => {
-						elem.innerHTML = '';
-					});
-				} else {
+				} else if (content !== undefined) {
 					console.error('Invalid content type! Expected string, number or object!');
+				} else {
+					console.error('No content provided to update!');
 				}
 
 				elements = null;
 			}
 		};
 	},
-	delete(contentSelector = '*') {
+	delete(contentSelector) {
 		return {
 			from(selector) {
 				let elements;
@@ -168,7 +166,7 @@ const DOM = {
 			}
 		};
 	},
-	trigger(event) {
+	executeTrigger(event) {
 		return {
 			on(selector) {
 				let elements;
