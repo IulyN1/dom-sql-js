@@ -2,85 +2,167 @@ const DOM = {
 	insert(content) {
 		return {
 			into(selector) {
-				const elem = document.querySelector(selector);
-				if (!elem) {
-					console.error(`No element with ${selector} selector!`);
+				let elements;
+
+				if (selector) {
+					elements = document.querySelectorAll(selector);
+					elements = elements.length === 0 ? elements : Array.from(elements);
+
+					if (!elements.length) {
+						console.error(`No element with ${selector} selector!`);
+						return;
+					}
+					elements.forEach((elem) => {
+						elem.innerHTML += content;
+					});
+				} else {
+					console.error('No selector provided!');
 					return;
 				}
-				elem.innerHTML += content;
+
+				elements = null;
 			}
 		};
 	},
 	update(selector) {
 		return {
 			set(content) {
-				const elem = document.querySelector(selector);
-				if (!elem) {
-					console.error(`No element with ${selector} selector!`);
+				let elements;
+
+				if (selector) {
+					elements = document.querySelectorAll(selector);
+					elements = elements.length === 0 ? elements : Array.from(elements);
+
+					if (!elements.length) {
+						console.error(`No element with ${selector} selector!`);
+						return;
+					}
+				} else {
+					console.error('No selector provided!');
 					return;
 				}
+
 				if (typeof content === 'object') {
 					Object.entries(content).forEach((entry) => {
 						const [key, value] = entry;
 						if (key === 'style') {
 							Object.entries(value).forEach((style) => {
-								const [styleKey, styleValue] = style;
-								elem.style[styleKey] = styleValue;
+								elements.forEach((elem) => {
+									const [styleKey, styleValue] = style;
+									elem.style[styleKey] = styleValue;
+								});
 							});
 							return;
 						} else {
-							elem[key] = value;
+							elements.forEach((elem) => {
+								elem[key] = value;
+							});
 						}
 					});
 				} else if (typeof content === 'string' || typeof content === 'number') {
-					elem.innerHTML = content;
+					elements.forEach((elem) => {
+						elem.innerHTML = content;
+					});
+				} else if (!content) {
+					elements.forEach((elem) => {
+						elem.innerHTML = '';
+					});
 				} else {
-					console.error('Invalid content type! Expected string, number or object');
+					console.error('Invalid content type! Expected string, number or object!');
 				}
+
+				elements = null;
 			}
 		};
 	},
 	delete(contentSelector = '*') {
 		return {
 			from(selector) {
-				const elem = document.querySelector(selector);
-				if (!elem) {
-					console.error(`No element with ${selector} selector!`);
+				let elements;
+
+				if (selector) {
+					elements = document.querySelectorAll(selector);
+					elements = elements.length === 0 ? elements : Array.from(elements);
+
+					if (!elements.length) {
+						console.error(`No element with ${selector} selector!`);
+						return;
+					}
+				} else {
+					console.error('No selector provided!');
 					return;
 				}
 
 				if (!contentSelector || contentSelector === '*') {
-					elem.innerHTML = '';
+					elements.forEach((elem) => {
+						elem.innerHTML = '';
+					});
 				} else {
-					const child = elem.querySelector(contentSelector);
-					if (!child) {
-						console.error(`No element with ${selector} selector!`);
-						return;
-					}
-					child.innerHTML = '';
+					elements.forEach((elem) => {
+						let children = elem.querySelectorAll(contentSelector);
+						children = children.length === 0 ? children : Array.from(children);
+
+						if (!children.length) {
+							console.error(`No child element with ${contentSelector} selector!`);
+							return;
+						}
+						children.forEach((child) => {
+							child.innerHTML = '';
+						});
+
+						children = null;
+					});
 				}
+
+				elements = null;
 			}
 		};
 	},
 	drop(selector) {
-		const elem = document.querySelector(selector);
-		if (!elem) {
-			console.error(`No element with ${selector} selector!`);
+		let elements;
+
+		if (selector) {
+			elements = document.querySelectorAll(selector);
+			elements = elements.length === 0 ? elements : Array.from(elements);
+
+			if (!elements.length) {
+				console.error(`No element with ${selector} selector!`);
+				return;
+			}
+			elements.forEach((elem) => {
+				elem.remove();
+			});
+		} else {
+			console.error('No selector provided!');
 			return;
 		}
-		elem.remove();
+
+		elements = null;
 	},
 	createTrigger(event) {
 		return {
 			on(selector) {
-				const elem = document.querySelector(selector);
-				if (!elem) {
-					console.error(`No element with ${selector} selector!`);
+				let elements;
+
+				if (selector) {
+					elements = document.querySelectorAll(selector);
+					elements = elements.length === 0 ? elements : Array.from(elements);
+
+					if (!elements.length) {
+						console.error(`No element with ${selector} selector!`);
+						return;
+					}
+				} else {
+					console.error('No selector provided!');
 					return;
 				}
 				return {
 					execute(callback) {
-						elem.addEventListener(event, callback);
+						elements.forEach((elem) => {
+							elem.addEventListener(event, callback);
+						});
+
+						elements = null;
 					}
 				};
 			}
@@ -89,13 +171,27 @@ const DOM = {
 	trigger(event) {
 		return {
 			on(selector) {
-				const elem = document.querySelector(selector);
-				if (!elem) {
-					console.error(`No element with ${selector} selector!`);
+				let elements;
+
+				if (selector) {
+					elements = document.querySelectorAll(selector);
+					elements = elements.length === 0 ? elements : Array.from(elements);
+
+					if (!elements.length) {
+						console.error(`No element with ${selector} selector!`);
+						return;
+					}
+					elements.forEach((elem) => {
+						let ev = new Event(event);
+						elem.dispatchEvent(ev);
+						ev = null;
+					});
+				} else {
+					console.error('No selector provided!');
 					return;
 				}
-				const ev = new Event(event);
-				elem.dispatchEvent(ev);
+
+				elements = null;
 			}
 		};
 	}
