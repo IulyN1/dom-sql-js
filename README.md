@@ -1,1 +1,3 @@
-# QDOM JS Library - DOM Manipulation with a SQL-like syntax
+# QDOM JS Library
+
+## DOM Manipulation with a SQL-like syntax
