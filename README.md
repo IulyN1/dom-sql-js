@@ -4,6 +4,11 @@ QDOM JS is a JavaScript library for SQL-like DOM manipulation. It provides an in
 
 This package is designed for developers with some knowledge of JavaScript, enabling them to interact with DOM elements more effectively using SQL-like syntax.
 
+QDOM uses:
+
+-   [Vite](https://vite.dev/) for bundling
+-   [DOMPurify](https://github.com/cure53/DOMPurify) for sanitizing content
+
 ## 🔥 Features
 
 -   ⚡ Lightweight (only ~36 KB)
