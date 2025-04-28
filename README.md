@@ -1,6 +1,6 @@
 # QDOM JS - DOM Manipulation with SQL-like syntax
 
-QDOM JS is a JavaScript library for SQL-like DOM manipulation. It provides an intuitive interface for interacting with the DOM in a way that mimics SQL syntax, such as `SELECT`, `INSERT`, `UPDATE`, `DELETE`, and other commands for efficient DOM manipulation.
+**QDOM JS** is a JavaScript library for SQL-like DOM manipulation. It provides an intuitive interface for interacting with the DOM in a way that mimics SQL syntax, such as `SELECT`, `INSERT`, `UPDATE`, `DELETE`, and other commands for efficient DOM manipulation.
 
 This package is designed for developers with some knowledge of JavaScript, enabling them to interact with DOM elements more effectively using SQL-like syntax.
 
@@ -14,16 +14,12 @@ QDOM JS uses:
 -   ⚡ Lightweight (only ~36 KB)
 -   🎯 Pure client-side execution
 -   ✨ SQL-like syntax for DOM manipulation
--   🧩 Easy integration into any project via a `<script>` tag or `npm` package
+-   🧩 Easy integration into any project via a `<script>` tag
 -   🔒 Protection against XSS when inserting HTML
 
 ## 🚀 Installation
 
-You can install QDOM JS via npm:
-
-```bash
-npm install qdom-js
-```
+### Import QDOM JS into the HTML file
 
 If you're using it in a project with a `<script>` tag, you can include the minified version directly:
 
@@ -46,6 +42,8 @@ QDOM.select('#elementId').count('*');
 QDOM.select('.container').sum('.value');
 ```
 
+`SELECT` only allows applying aggregation functions, not directly selecting elements as that can be done with CSS selectors. `SELECT` supports `COUNT`, `SUM`, `AVG`, `MIN` and `MAX` operations. Both `SELECT` and `DELETE` support `*` selector alongside with normal CSS selectors.
+
 ### 2. **INSERT**
 
 To insert content into a DOM element:
@@ -59,7 +57,7 @@ QDOM.insert('<div><span>Test</span></div>').into('#elementId');
 To update the properties of an element:
 
 ```javascript
-QDOM.update('#elementId').set({ textContent: 'New Text' });
+QDOM.update('#elementId').set({ text: 'New Text' });
 ```
 
 ### 4. **DELETE**
@@ -68,6 +66,7 @@ To delete a DOM element:
 
 ```javascript
 QDOM.delete('#elementId').from('body');
+QDOM.delete('*').from('.list');
 ```
 
 ### 5. **DROP**
@@ -102,7 +101,7 @@ QDOM.executeTrigger('click').on('#buttonId');
 
 The core methods provided by QDOM JS are:
 
--   **select(selector)** - Select elements based on the given selector.
+-   **select(selector)** - Select elements based on the given selector for which to apply later defined functions (such as `COUNT`).
 -   **insert(content)** - Insert HTML content into selected elements.
 -   **update(selector)** - Update properties of the selected elements.
 -   **delete(selector)** - Delete elements from the DOM.
@@ -110,4 +109,4 @@ The core methods provided by QDOM JS are:
 -   **createTrigger(event)** - Create a trigger on an element.
 -   **executeTrigger(event)** - Execute a trigger manually.
 
-Each of these methods returns a chainable object that can be used for further operations.
+Each of these methods returns a chainable object that can be used for further operations (like in the create trigger example).
