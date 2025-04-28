@@ -1,0 +1,33 @@
+{
+	"name": "qdom-js",
+	"version": "1.0.0",
+	"description": "QDOM - DOM Manipulation with SQL-like syntax",
+	"main": "dist/qdom.min.js",
+	"scripts": {
+		"build": "npx vite build",
+		"prepublishOnly": "npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"type": "module",
+	"author": "Iulian Alexandru Popa",
+	"license": "MIT",
+	"keywords": [
+		"qdom",
+		"dom",
+		"query",
+		"html",
+		"lightweight"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IulyN1/qdom-js.git"
+	},
+	"homepage": "https://github.com/IulyN1/qdom-js#readme",
+	"bugs": {
+		"url": "https://github.com/IulyN1/qdom-js/issues"
+	},
+	"dependencies": {
+		"dompurify": "^3.2.5",
+		"vite": "^6.3.2"
+	}
+}

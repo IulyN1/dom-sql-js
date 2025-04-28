@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./index.css" />
+		<script src="./dist/qdom.min.js"></script>
+		<title>QDOM - DOM Manipulation with SQL-like syntax</title>
+	</head>
+	<body>
+		<h1>QDOM - Example</h1>
+		<div class="el">TEST</div>
+		<div id="insertEl" class="el"></div>
+		<div id="updateEl">Content</div>
+		<div id="deleteEl">
+			OK
+			<p>OK2</p>
+		</div>
+		<div id="dropEl">Bye</div>
+		<button id="counter">+</button>
+		<span id="counterValue">0</span>
+		<div id="main">
+			<p class="item">1</p>
+			<p class="item">2</p>
+		</div>
+
+		<script>
+			let value = 0;
+
+			const count = QDOM.select('#main').count('.item');
+			const sum = QDOM.select('#main').sum('*');
+			console.log(count, sum);
+
+			QDOM.insert('<div style="color:red">New content</div>').into('#insertEl');
+			QDOM.insert('<div>Test content</div>').into('.el');
+
+			QDOM.update('#updateEl').set({ text: 'Updated' });
+			QDOM.update('#updateEl').set({ html: '<div>Updated with color</div>', color: 'blue' });
+			QDOM.update('#insertEl div').set({ color: 'green' });
+
+			QDOM.delete('p').from('#deleteEl');
+			QDOM.drop('#dropEl');
+
+			QDOM.createTrigger('click')
+				.on('#counter')
+				.execute(() => {
+					value++;
+					QDOM.update('#counterValue').set({ text: value });
+				});
+			QDOM.executeTrigger('click').on('#counter');
+		</script>
+	</body>
+</html>
