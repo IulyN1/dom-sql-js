@@ -426,4 +426,4 @@ const QDOM = {
 	}
 };
 
-window.QDOM = QDOM; // expose QDOM to the global scope for easy access
+window.QDOM = QDOM; // expose QDOM to the global scope
