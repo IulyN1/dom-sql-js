@@ -19,8 +19,17 @@
 		<div id="dropEl">Bye</div>
 		<button id="counter">+</button>
 		<span id="counterValue">0</span>
+		<div id="main">
+			<p class="item">1</p>
+			<p class="item">2</p>
+		</div>
+
 		<script>
 			let value = 0;
+
+			const count = DOM.select('#main').count('.item');
+			const sum = DOM.select('#main').sum('*');
+			console.log(count, sum);
 
 			DOM.insert('<div style="color:red">New content</div>').into('#insertEl');
 			DOM.insert('<div>Test content</div>').into('.el');
