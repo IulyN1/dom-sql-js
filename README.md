@@ -58,7 +58,10 @@ To update the properties of an element:
 
 ```javascript
 QDOM.update('#elementId').set({ text: 'New Text' });
+QDOM.update('#header').set({ html: '<div>Hello!</div>' });
 ```
+
+**Note:** `UPDATE` allows for `text` property which sets the `innerText` property to the given value, and for `html` property which sets the `innerHTML` property to the given value. The rest of the properties are taken for granted and don't present any special rules (`color`, `fontSize`, etc.).
 
 ### 4. **DELETE**
 

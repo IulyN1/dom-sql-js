@@ -1,6 +1,6 @@
 {
 	"name": "qdom-js",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "QDOM JS - DOM Manipulation with SQL-like syntax",
 	"main": "dist/qdom.min.js",
 	"scripts": {
